@@ -8,30 +8,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.hr.dao.AdvertiserDAO;
-import com.hr.dao.PublisherDAO;
-import com.hr.entities.msdb.Advertiser;
-import com.hr.entities.mysql.Publisher;
+import com.hr.dao.CheckInOutDAO;
+import com.hr.dto.response.ListCheckOutResponse;
  
 @Controller
 public class MainController {
  
     @Autowired
-    private PublisherDAO publisherDAO;
- 
-    @Autowired
-    private AdvertiserDAO advertiserDAO;
+    private CheckInOutDAO checkInOutDAO;
  
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String homePage(Model model) {
  
-        List<Advertiser> advertisers = advertiserDAO.listAdvertisers();
-        List<Publisher> publishers = publisherDAO.listPublishers();
+        List<ListCheckOutResponse> checkOut = checkInOutDAO.getListCheckInOut();
  
-        model.addAttribute("advertisers", advertisers);
-        model.addAttribute("publishers", publishers);
+        model.addAttribute("checkOut", checkOut);
  
-        return "dashboard";
+        return "home";
     }
  
 }
