@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.hr.dao.CheckInOutDAO;
-import com.hr.dto.response.ListCheckOutResponse;
+import com.hr.dto.response.CheckOutMSResponse;
  
 @Controller
 public class MainController {
@@ -20,11 +20,10 @@ public class MainController {
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String homePage(Model model) {
  
-        List<ListCheckOutResponse> checkOut = checkInOutDAO.getListCheckInOut();
+        List<CheckOutMSResponse> checkOut = checkInOutDAO.getListCheckInOut();
  
         model.addAttribute("checkOut", checkOut);
  
-        return "home";
+        return "dashboard";
     }
- 
 }

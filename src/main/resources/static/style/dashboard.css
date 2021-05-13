@@ -91,3 +91,19 @@ body {
 
 .border-top { border-top: 1px solid #e5e5e5; }
 .border-bottom { border-bottom: 1px solid #e5e5e5; }
+
+.border-header>th {
+  border: 1px solid #e5e5e5;
+  text-align: center;
+}
+.border-header-td>td {
+  border: 1px solid #e5e5e5;
+  font-weight: bold;
+  text-align: center;
+}
+.border-header-tbody>td {
+  border: 1px solid #e5e5e5;
+}
+.cented {
+  text-align: center;
+}
