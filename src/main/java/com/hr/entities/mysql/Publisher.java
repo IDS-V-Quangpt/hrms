@@ -1,4 +1,4 @@
-package com.hr.entities.entity2;
+package com.hr.entities.mysql;
 
 import java.io.Serializable;
 
@@ -9,8 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
  
 @Entity
-@Table(name = "Advertisers")
-public class Advertiser implements Serializable {
+@Table(name = "Publishers")
+public class Publisher implements Serializable {
  
     private static final long serialVersionUID = 746237126088051312L;
  

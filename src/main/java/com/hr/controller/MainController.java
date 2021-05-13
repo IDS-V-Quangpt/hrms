@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.hr.dao.AdvertiserDAO;
 import com.hr.dao.PublisherDAO;
-import com.hr.entities.entity1.Publisher;
-import com.hr.entities.entity2.Advertiser;
+import com.hr.entities.msdb.Advertiser;
+import com.hr.entities.mysql.Publisher;
  
 @Controller
 public class MainController {

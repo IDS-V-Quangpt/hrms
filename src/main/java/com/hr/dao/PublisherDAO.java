@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.hr.config.Constants;
-import com.hr.entities.entity1.Publisher;
+import com.hr.entities.mysql.Publisher;
  
 @Repository
 public class PublisherDAO {

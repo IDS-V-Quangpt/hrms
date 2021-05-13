@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.hr.config.Constants;
-import com.hr.entities.entity2.Advertiser;
+import com.hr.entities.msdb.Advertiser;
  
 @Repository
 public class AdvertiserDAO {
