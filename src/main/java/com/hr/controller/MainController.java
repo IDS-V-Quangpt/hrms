@@ -31,7 +31,7 @@ public class MainController {
         model.addAttribute("advertisers", advertisers);
         model.addAttribute("publishers", publishers);
  
-        return "home";
+        return "dashboard";
     }
  
 }
