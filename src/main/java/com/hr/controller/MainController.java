@@ -26,4 +26,10 @@ public class MainController {
  
         return "dashboard";
     }
+    
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String dashboard(Model model) {
+ 
+        return "dashboard";
+    }
 }
