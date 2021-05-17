@@ -17,7 +17,7 @@ public class MainController {
     @Autowired
     private CheckInOutDAO checkInOutDAO;
  
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    @RequestMapping(value = "/work-time", method = RequestMethod.GET)
     public String homePage(Model model) {
  
         List<CheckOutMSResponse> checkOut = checkInOutDAO.getListCheckInOut();
