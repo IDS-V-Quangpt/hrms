@@ -21,7 +21,7 @@ public class CheckOutMSResponse implements Serializable {
 	private DayOfWeek week;
 	private String checkIn;
 	private String checkOut;
-	private Double total;
+	private String total;
 	private Double paidLeave;
 	private Boolean specialCase;
 	private Double earlyLate;

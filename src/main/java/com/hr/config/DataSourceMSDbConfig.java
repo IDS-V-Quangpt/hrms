@@ -18,8 +18,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 
 @Configuration
-//Load to Environment
-//(@see resources/datasource-cfg.properties).
 @PropertySources({ @PropertySource("classpath:datasource-cfg.properties") })
 public class DataSourceMSDbConfig {
 	 
@@ -51,13 +49,10 @@ public class DataSourceMSDbConfig {
         em.setJpaVendorAdapter(vendorAdapter);
  
         HashMap<String, Object> properties = new HashMap<>();
+        
         // JPA & Hibernate
         properties.put("hibernate.dialect", env.getProperty("spring.jpa.properties.hibernate.dialect.2"));
         properties.put("hibernate.show-sql", env.getProperty("spring.jpa.show-sql.2"));
- 
-        // Solved Error: PostGres createClob() is not yet implemented.
-        // PostGres Only.
-        // properties.put("hibernate.temp.use_jdbc_metadata_defaults",  false);
  
         em.setJpaPropertyMap(properties);
         em.afterPropertiesSet();
@@ -71,5 +66,4 @@ public class DataSourceMSDbConfig {
         transactionManager.setEntityManagerFactory(ds2EntityManager().getObject());
         return transactionManager;
     }
- 
 }

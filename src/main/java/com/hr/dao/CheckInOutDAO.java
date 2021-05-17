@@ -29,15 +29,20 @@ public class CheckInOutDAO {
 	@PersistenceContext(unitName = Constants.JPA_UNIT_NAME_2)
 	private EntityManager entityManager;
 
+	/**
+	 * Get list CheckIn-Out
+	 * 
+	 * @return List CheckOutMSResponse
+	 */
 	public List<CheckOutMSResponse> getListCheckInOut() {
 
 		String sql = "SELECT DISTINCT " + "U.UserLastName, " + "U.UserFullName, " + "C.TimeStr " + "FROM UserInfo AS U "
 				+ "INNER JOIN CheckInOut AS C " + "ON u.UserEnrollNumber = C.UserEnrollNumber"
-				+ " WHERE C.TimeStr >=:startDate AND C.TimeStr <=:endDate ORDER BY C.TimeStr ASC ";
+				+ " WHERE C.TimeStr >= :startDate AND C.TimeStr <= :endDate ORDER BY C.TimeStr ASC ";
 
 		Query query = entityManager.createNativeQuery(sql);
-        query.setParameter("startDate", DateUtils.firstDayOfMonth());
-        query.setParameter("endDate", DateUtils.lastDayOfMonth());
+		query.setParameter("startDate", DateUtils.firstDayOfMonth(null));
+		query.setParameter("endDate", DateUtils.lastDayOfMonth(null));
 
 		@SuppressWarnings("unchecked")
 		List<Object[]> result = query.getResultList();
@@ -57,31 +62,82 @@ public class CheckInOutDAO {
 
 			results.add(dto);
 		}
-	
-		List<CheckOutMSResponse> res2 = results.stream().filter(distinctByKey(p -> p.getDate())).collect(Collectors.toList());
-		
+
+		List<CheckOutMSResponse> distinctResponse = results.stream().filter(distinctByKey(p -> p.getEmpNo()))
+				.collect(Collectors.toList());
+
 		List<CheckOutMSResponse> dtoMain = new ArrayList<>();
-		for (CheckOutMSResponse checkOutMSResponse : res2) {
-			
-			Date maxDate = results.stream().filter(x -> x.getDate().equals(checkOutMSResponse.getDate())).map(u -> u.getDateConvert()).max(Date::compareTo).get();
-			Date minDate = results.stream().filter(x -> x.getDate().equals(checkOutMSResponse.getDate())).map(u -> u.getDateConvert()).min(Date::compareTo).get();
-			
-			CheckOutMSResponse dto2 = new CheckOutMSResponse();
-			dto2.setEmpNo(checkOutMSResponse.getEmpNo());
-			dto2.setName(checkOutMSResponse.getName());
-			dto2.setDate(checkOutMSResponse.getDate());
-			dto2.setWeek(DateUtils.getWeek(checkOutMSResponse.getDate()));
-			dto2.setCheckIn(DateUtils.getHourAndMinute(minDate));
-			dto2.setCheckOut(DateUtils.getHourAndMinute(maxDate));
-			dtoMain.add(dto2);
+
+		for (CheckOutMSResponse checkOutMSResponse : distinctResponse) {
+
+			Date minDate = getMaxAndMin(false, checkOutMSResponse.getName(), checkOutMSResponse.getDateConvert());
+			Date maxDate = getMaxAndMin(true, checkOutMSResponse.getName(), checkOutMSResponse.getDateConvert());
+
+			CheckOutMSResponse resonseMain = new CheckOutMSResponse();
+			resonseMain.setEmpNo(checkOutMSResponse.getEmpNo());
+			resonseMain.setName(checkOutMSResponse.getName());
+			resonseMain.setDate(checkOutMSResponse.getDate());
+			resonseMain.setWeek(DateUtils.getWeek(checkOutMSResponse.getDate()));
+			resonseMain.setCheckIn(DateUtils.getHourAndMinute(minDate));
+			resonseMain.setCheckOut(DateUtils.getHourAndMinute(maxDate));
+			resonseMain.setTotal(DateUtils.formatDuration(DateUtils.getHourAndMinute(minDate), DateUtils.getHourAndMinute(maxDate)));
+			dtoMain.add(resonseMain);
 		}
 
 		return dtoMain;
 	}
-	
-	public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) 
-    {
-        Map<Object, Boolean> map = new ConcurrentHashMap<>();
-        return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
-    }
+
+	/**
+	 * Distinct Data
+	 * 
+	 * @param <T>
+	 * @param keyExtractor
+	 * @return
+	 */
+	public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
+		Map<Object, Boolean> map = new ConcurrentHashMap<>();
+		return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+	}
+
+	/**
+	 *  Get Checkin, CheckOut
+	 *  
+	 * @param flag
+	 * @param name
+	 * @param time
+	 * @return
+	 */
+	private Timestamp getMaxAndMin(boolean flag, String name, Timestamp time) {
+
+		String startDate = DateUtils.firstDayOfMonth(time);
+		String endDate = DateUtils.lastDayOfMonth(time);
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT\r\n");
+		if (flag == false) {
+			sb.append("	MIN(C.`TimeStr`)\r\n");
+		} else {
+			sb.append("	MAX(C.`TimeStr`)\r\n");
+		}
+		sb.append("	FROM `UserInfo` AS U\r\n");
+		sb.append("INNER JOIN `CheckInOut` AS C ON\r\n");
+		sb.append("	u.`UserEnrollNumber` = C.`UserEnrollNumber`\r\n");
+		sb.append("WHERE\r\n");
+		sb.append("	U.`UserFullName` = :name\r\n");
+		sb.append("	AND C.`TimeStr` >= :startDate\r\n");
+		sb.append("	AND C.`TimeStr` <= :endDate\r\n");
+		sb.append("GROUP BY\r\n");
+		sb.append("	U.`UserLastName`,\r\n");
+		sb.append("	U.`UserFullName`");
+
+		Query query = entityManager.createNativeQuery(sb.toString());
+		query.setParameter("name", name);
+		query.setParameter("startDate", startDate);
+		query.setParameter("endDate", endDate);
+
+		@SuppressWarnings("unchecked")
+		List<Object> result = query.getResultList();
+		return (Timestamp) result.get(0);
+	}
+
 }

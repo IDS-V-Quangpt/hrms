@@ -8,11 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import lombok.Data;
  
 @Entity
 @Table(name = "worktime")
 @Data
+@DynamicUpdate
 public class WorkTime implements Serializable {
  
     private static final long serialVersionUID = 746237126088051312L;
