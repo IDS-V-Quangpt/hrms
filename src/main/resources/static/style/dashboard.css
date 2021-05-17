@@ -107,3 +107,16 @@ body {
 .cented {
   text-align: center;
 }
+.align-right{
+	text-align: right;
+}
+.card{
+	margin: 5px;
+	padding: 10px;
+}
+.mybutton{
+	padding-left: 5px !important;
+	padding-right: 5px !important;
+	padding-top: 2px !important;
+	padding-bottom: 2px !important;
+}

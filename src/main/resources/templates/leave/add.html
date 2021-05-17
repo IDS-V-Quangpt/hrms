@@ -1,0 +1,100 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+   <div th:insert="fragments/head :: head"></div>
+</head>
+
+<body>
+  <div th:insert="fragments/topbar :: topbar"></div>
+  <div th:insert="fragments/sidebar :: sidebar(currentMenu='leave')"></div>
+  <div class="container-fluid">
+    <div class="row">
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+	      <div>
+	      	<h1 class="h2">Đăng Ký Nghĩ Phép</h1>
+	      </div>
+	      <a href="/leave/">
+	      	<button type="button" class="btn btn-success mybutton">Back</button>
+	      </a>
+      	<div class="card form-group">
+	      	<form method="POST" action="/leave/add">
+		      	<div class="row pt-1">
+		      		<label for="leaveDay" class="col-1 align-right">Ngày</label>
+		      		<div class="col-4 pl-0">
+		      			<input class="form-control" type="date" name="leaveDay" style="width:180px"/>
+		      		</div>
+		      	</div>
+		      	<div class="row pt-1">
+		      		<label for="from" class="col-1 align-right">Từ</label>
+		      		<div class="col-4 pl-0">
+						<select class="form-control" name="from" style="width:90px">
+							<option value="8">8:00</option>
+							<option value="8.5">8:30</option>
+							<option value="9" selected>9:00</option>
+							<option value="9.5">9:30</option>
+							<option value="10">10:00</option>
+							<option value="10.5">10:30</option>
+							<option value="11">11:00</option>
+							<option value="11.5">11:30</option>
+							<option value="12">12:00</option>
+							<option value="13">13:00</option>
+							<option value="13.5">13:30</option>
+							<option value="14">14:00</option>
+							<option value="14.5">14:30</option>
+							<option value="15">15:00</option>
+							<option value="15.5">15:30</option>
+							<option value="16">16:00</option>
+							<option value="16.5">16:30</option>
+							<option value="17">17:00</option>
+							<option value="17.5">17:30</option>
+							<option value="18">18:00</option>
+						</select>
+					</div>
+		      	</div>
+		      	<div class="row pt-1">
+		      		<label for="to" class="col-1 align-right">Đến</label>
+		      		<div class="col-4 pl-0">
+						<select class="form-control" name="to" style="width:90px">
+							<option value="8">8:00</option>
+							<option value="8.5">8:30</option>
+							<option value="9">9:00</option>
+							<option value="9.5">9:30</option>
+							<option value="10">10:00</option>
+							<option value="10.5">10:30</option>
+							<option value="11">11:00</option>
+							<option value="11.5">11:30</option>
+							<option value="12">12:00</option>
+							<option value="13">13:00</option>
+							<option value="13.5">13:30</option>
+							<option value="14">14:00</option>
+							<option value="14.5">14:30</option>
+							<option value="15">15:00</option>
+							<option value="15.5">15:30</option>
+							<option value="16">16:00</option>
+							<option value="16.5">16:30</option>
+							<option value="17">17:00</option>
+							<option value="17.5">17:30</option>
+							<option value="18" selected>18:00</option>
+						</select>
+					</div>
+		      	</div>
+		      	<div class="row pt-1">
+		      		<label for="comment" class="col-1 align-right">Ghi Chú</label>
+		      		<div class="col-10 pl-0">
+		      			<textarea  type="text" style="height: 70px" class="col-12 form-control" name="comment"> </textarea>
+		      		</div>
+		      	</div>
+		      	<div class="row pt-1">
+		      		<label for="comment" class="col-1 align-right"></label>
+		      		<button type="submit" class="btn btn-primary mybutton">Submit</button>
+		      	</div>
+		      	
+	      	</form>
+      	</div>
+      </main>
+    </div>
+  </div>
+ <div th:insert="fragments/scriptjs :: scriptjs"></div>
+</body>
+
+</html>

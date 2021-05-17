@@ -21,7 +21,6 @@ public class MainController {
     public String homePage(Model model) {
  
         List<CheckOutMSResponse> checkOut = checkInOutDAO.getListCheckInOut();
- 
         model.addAttribute("checkOut", checkOut);
  
         return "dashboard";
@@ -32,4 +31,5 @@ public class MainController {
  
         return "dashboard";
     }
+
 }
