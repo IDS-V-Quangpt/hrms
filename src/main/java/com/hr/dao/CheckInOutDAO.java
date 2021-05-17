@@ -81,6 +81,8 @@ public class CheckInOutDAO {
 			resonseMain.setCheckIn(DateUtils.getHourAndMinute(minDate));
 			resonseMain.setCheckOut(DateUtils.getHourAndMinute(maxDate));
 			resonseMain.setTotal(DateUtils.formatDuration(DateUtils.getHourAndMinute(minDate), DateUtils.getHourAndMinute(maxDate)));
+			resonseMain.setPaidLeave(DateUtils.calPaidLeave(DateUtils.formatDuration(DateUtils.getHourAndMinute(minDate), DateUtils.getHourAndMinute(maxDate))));
+			resonseMain.setHours(DateUtils.hoursExtend(DateUtils.formatDuration(DateUtils.getHourAndMinute(minDate), DateUtils.getHourAndMinute(maxDate))));
 			dtoMain.add(resonseMain);
 		}
 
