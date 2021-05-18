@@ -1,8 +1,13 @@
 package com.hr.controller;
 
+import java.util.List;
+import java.util.Locale;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +26,10 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 	
+    @Autowired
+    @Qualifier("messageResource")
+    private MessageSource messageSource;
+	
     @GetMapping(value = "")
     public String getEmp(Model model) {
         return "employee/listEmployee";
@@ -30,10 +39,13 @@ public class EmployeeController {
     public String addEmp(Model model, @Valid @ModelAttribute EmployeeResponse response, RedirectAttributes redirAttrs) {
     	
     	employeeService.save(response);
-    	
-    	redirAttrs.addFlashAttribute("message", "Thêm nhân viên thành công !");
-    	
+    	redirAttrs.addFlashAttribute("message", messageSource.getMessage("message.success.add.employee", null, Locale.US));
     	return "redirect:/employee";
+    }
+    
+    @GetMapping("/list-emp")
+    public List<?> getListEmp() {
+    	return null;
     }
 
 }
