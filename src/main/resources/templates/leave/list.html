@@ -59,13 +59,45 @@
                 <th width="40px">Đến</th>
                 <th width="60px">Số Giờ</th>
                 <th width="90px">Tình Trạng</th>
-                <th width="550px">Ghi Chú</th>
-                <th>Ghi Chú Phê Duyệt</th>
+                <th width="300px">Ghi Chú</th>
+                <th width="100px">Người duyệt</th>
+                <th width="300px">Ghi Chú Phê Duyệt</th>
               </tr>
             </thead>
         <tbody>
-            <tr th:each="checkOut : ${checkOut}" class="border-header-tbody">
-                <td th:utext="${checkOut.empNo}"></td>
+        
+        	<tr>
+             	<td>3</td>
+                <td>14-05-2021</td>
+                <td>9:00</td>
+                <td>11:00</td>
+                <td>2</td>
+                <td style="color:red">Từ Chối</td>
+                <td>em xin phép nghĩ thăm người yêu</td>
+                <td>A.Bữu</td>
+                <td>Dự án đang cần gấp không nghĩ được em nhé</td>
+            </tr>
+            <tr>
+             	<td>2</td>
+                <td>14-05-2021</td>
+                <td>9:00</td>
+                <td>11:00</td>
+                <td>2</td>
+                <td>Chưa Duyệt</td>
+                <td>em xin phép nghĩ bệnh</td>
+                <td>A.Bữu</td>
+                <td></td>
+            </tr>
+             <tr>
+             	<td>1</td>
+                <td>14-05-2021</td>
+                <td>9:00</td>
+                <td>11:00</td>
+                <td>2</td>
+                <td style="color:green">Đã Duyệt</td>
+                <td>em xin phép nghĩ bệnh</td>
+                <td>A.Bữu</td>
+                <td>ok em nhé</td>
             </tr>
         </tbody>
     </table>

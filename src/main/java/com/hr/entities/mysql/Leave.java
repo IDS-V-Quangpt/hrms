@@ -6,24 +6,23 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
 @Entity
-@Table(name = "leave")
+@Table(name = "leave_day")
 @Data
 public class Leave implements Serializable {
 
 	private static final long serialVersionUID = 746237126088051312L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
 	private Integer id;
 
@@ -34,17 +33,17 @@ public class Leave implements Serializable {
 	@Column(name = "leave_day")
 	private Date leaveDay;
 
-	@Column(name = "from")
-	private Float from;
+	@Column(name = "leave_from")
+	private Float leaveFrom;
 
-	@Column(name = "to")
-	private Float to;
+	@Column(name = "leave_to")
+	private Float leaveTo;
 
-	@Column(name = "comment")
-	private String comment;
+	@Column(name = "user_comment")
+	private String userComment;
 
 	@Column(name = "approve")
-	private Boolean approve;
+	private Integer approve;
 
 	@Column(name = "approve_user_id")
 	private Integer approveUserId;
@@ -52,6 +51,4 @@ public class Leave implements Serializable {
 	@Column(name = "approve_comment")
 	private String approveComment;
 
-	@Column(name = "is_delete")
-	private Boolean IsDelete;
 }
