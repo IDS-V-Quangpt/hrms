@@ -22,12 +22,12 @@ public class CheckOutMSResponse implements Serializable {
 	private String checkIn;
 	private String checkOut;
 	private String total;
-	private Double paidLeave;
+	private String paidLeave;
 	private Boolean specialCase;
 	private Double earlyLate;
 	private Double from;
 	private Double to;
-	private Double hours;
+	private String hours;
 	private String note;
 	private String startDate;
 	private String endDate;

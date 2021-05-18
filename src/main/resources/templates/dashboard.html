@@ -51,7 +51,7 @@
                 <th rowspan="2">Name</th>
                 <th colspan="2" rowspan="2">Date</th>
                 <th colspan="3">Working Hours</th>
-                <th  rowspan="2">Paid Leave</th>
+                <th  rowspan="2">Paid Work</th>
                 <th  rowspan="2">Special <br> Case</th>
                 <th  rowspan="2">Early - Late</th>
                 <th  colspan="3">Over Time</th>
@@ -74,13 +74,13 @@
                 <td th:utext="${checkOut.week}"></td>
                 <td th:utext="${checkOut.checkIn}"></td>
                 <td th:utext="${checkOut.checkOut}"></td>
-                <td th:utext="${checkOut.total}"></td>
+                <td style="text-align:center;" th:utext="${checkOut.total}"></td>
+                <td style="text-align:center;" th:utext="${checkOut.paidLeave}"></td>
                 <td ></td>
                 <td ></td>
                 <td ></td>
                 <td ></td>
-                <td ></td>
-                <td ></td>
+                <td style="text-align:center;" th:utext="${checkOut.hours}"></td>
                 <td ></td>
               </tr>
                    </tbody>

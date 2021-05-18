@@ -18,7 +18,8 @@ public class DateUtils {
 	private static final int NUMBER_OF_LUNCH = 3600000;
 	private static final String DEFAULT_HOUR = "00:00";
 	private static final String FORMAT_HOUR_MINUTE = "%02d:%02d";
-
+	private static final String DEFAULT_HOURS = "08:00";
+	
 	public static String firstDayOfMonth(Date d) {
 
 		Calendar cal = Calendar.getInstance();
@@ -88,45 +89,75 @@ public class DateUtils {
 		}
 
 		long total = (endTime.getTime() - startTime.getTime());
-
+		if (total == 0) {
+			return " ";
+		}
+		
 		long hours = TimeUnit.MILLISECONDS.toHours(total - NUMBER_OF_LUNCH);
 		long minutes = TimeUnit.MILLISECONDS.toMinutes(total) % 60;
-		long seconds = TimeUnit.MILLISECONDS.toSeconds(total) % 60;
-		long milliseconds = total % 1000;
 
 		if (hours == -1) {
 			return DEFAULT_HOUR;
 		}
 
-		return String.format(FORMAT_HOUR_MINUTE, hours, minutes, seconds, milliseconds);
+		return String.format(FORMAT_HOUR_MINUTE, hours, minutes);
+	}
+
+	public static String calPaidLeave(String hours) {
+
+		if (hours.equals(" ")) {
+			return " ";
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat(HOUR_DURATION);
+		
+		Date dtWork = null;
+		
+		try {
+			dtWork = sdf.parse(hours);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(dtWork);
+		
+		if (calendar.get(Calendar.HOUR_OF_DAY) < 8) {
+			return hours;
+		} 
+		
+		if (calendar.get(Calendar.HOUR_OF_DAY) >= 8 && calendar.get(Calendar.MINUTE) >= 0) {
+			return DEFAULT_HOURS;
+		}
+		
+		return " ";
 	}
 	
-//	public static String calPaidLeave(String strDate) {
-//		
-//		SimpleDateFormat sdf = new SimpleDateFormat(HOUR_DURATION);
-//
-//		Date sDate = null;
-//		try {
-//			sDate = sdf.parse(strDate);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//		LocalDateTime local = LocalDateTime.parse();
-//
-////		long hours = TimeUnit.MILLISECONDS.toHours(total);
-////		long minutes = TimeUnit.MILLISECONDS.toMinutes(total) % 60;
-////		long seconds = TimeUnit.MILLISECONDS.toSeconds(total) % 60;
-////		long milliseconds = total % 1000;
-////		
-////		if (hours < 8) {
-////			return "OK";
-////		}
-//		
-//		return null;
-//	}
-	
-//	public static void main(String[] args) {
-//		calPaidLeave("06:50");
-//	}
+	public static String hoursExtend(String sDate) {
+		
+		if (sDate.equals(" ")) {
+			return " ";
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat(HOUR_DURATION);
+		
+		Date dtWork = null;
+		Date dtWorkDefault = null;
+		try {
+			dtWork = sdf.parse(sDate);
+			dtWorkDefault = sdf.parse(DEFAULT_HOURS);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		long total = (dtWork.getTime() - dtWorkDefault.getTime());
+		long hours = TimeUnit.MILLISECONDS.toHours(total);
+		long minutes = TimeUnit.MILLISECONDS.toMinutes(total) % 60;
+
+		if ((hours == -1) || hours <= 8 && minutes <= 0) {
+			return " ";
+		}
+
+		return String.format(FORMAT_HOUR_MINUTE, hours, minutes);
+	}
 }

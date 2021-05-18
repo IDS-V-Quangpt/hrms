@@ -16,11 +16,8 @@ public class MainController {
  
     @Autowired
     private CheckInOutDAO checkInOutDAO;
-    
-//    @Autowired
-//    private WorkTimeRepository repo;
  
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    @RequestMapping(value = "/work-time", method = RequestMethod.GET)
     public String homePage(Model model) {
  
         List<CheckOutMSResponse> checkOut = checkInOutDAO.getListCheckInOut();
@@ -32,8 +29,6 @@ public class MainController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String dashboard(Model model) {
  
-//    	List<WorkTime> list = repo.findAll();
-    	
         return "dashboard";
     }
 
