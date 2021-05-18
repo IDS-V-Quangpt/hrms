@@ -1,7 +1,6 @@
 package com.hr.dao;
 
 import java.sql.Timestamp;
-import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,7 +56,7 @@ public class CheckInOutDAO {
 			dto.setDate(objects[2] == null ? null : DateUtils.formatTimeStamp(ts.getTime()));
 			dto.setDateConvert(ts);
 
-			DayOfWeek week = DateUtils.getWeek(DateUtils.formatTimeStamp(ts.getTime()));
+			String week = DateUtils.getWeek(DateUtils.formatTimeStamp(ts.getTime()));
 			dto.setWeek(week);
 
 			results.add(dto);
@@ -81,8 +80,9 @@ public class CheckInOutDAO {
 			resonseMain.setCheckIn(DateUtils.getHourAndMinute(minDate));
 			resonseMain.setCheckOut(DateUtils.getHourAndMinute(maxDate));
 			resonseMain.setTotal(DateUtils.formatDuration(DateUtils.getHourAndMinute(minDate), DateUtils.getHourAndMinute(maxDate)));
-			resonseMain.setPaidLeave(DateUtils.calPaidLeave(DateUtils.formatDuration(DateUtils.getHourAndMinute(minDate), DateUtils.getHourAndMinute(maxDate))));
+			resonseMain.setPaidLeave(DateUtils.calPaidLeave(DateUtils.getHourAndMinute(minDate), DateUtils.getHourAndMinute(maxDate)));
 			resonseMain.setHours(DateUtils.hoursExtend(DateUtils.formatDuration(DateUtils.getHourAndMinute(minDate), DateUtils.getHourAndMinute(maxDate))));
+			resonseMain.setWorkTime(DateUtils.workingTime(DateUtils.getHourAndMinute(minDate), DateUtils.getHourAndMinute(maxDate)));
 			dtoMain.add(resonseMain);
 		}
 

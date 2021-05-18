@@ -1,4 +1,4 @@
-package com.hr.service;
+package com.hr.service.impl;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hr.dao.repository.LeaveRepository;
 import com.hr.entities.mysql.Leave;
+import com.hr.service.LeaveService;
 
 @Service
 @Transactional(transactionManager = "transactionManager")

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.hr.entities.mysql.Leave;
-import com.hr.service.LeaveServiceImpl;
+import com.hr.service.impl.LeaveServiceImpl;
 
 @Controller
 @RequestMapping(value = "/leave")

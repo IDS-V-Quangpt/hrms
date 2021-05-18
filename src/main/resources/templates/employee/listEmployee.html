@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Danh sách nhân viên</title>
+<div th:insert="fragments/head :: head"></div>
+</head>
+
+<body>
+	<div th:insert="fragments/topbar :: topbar"></div>
+	<div th:insert="fragments/sidebar :: sidebar(currentMenu='listEmp')"></div>
+
+
+	<div class="container-fluid">
+		<div class="row">
+			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+				<div class="chartjs-size-monitor"
+					style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+					<div class="chartjs-size-monitor-expand"
+						style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+						<div
+							style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
+					</div>
+					<div class="chartjs-size-monitor-shrink"
+						style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+						<div
+							style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
+					</div>
+				</div>
+				<div
+					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+					<h1 class="h2">Danh sách nhân viên</h1>
+				</div>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-8">
+							<table class="table">
+								<thead class="thead-dark">
+									<tr>
+										<th scope="col">Mã nhân viên</th>
+										<th scope="col">Họ và Tên</th>
+										<th scope="col">Tình trạng hôn nhân</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>00001</td>
+										<td>Mark</td>
+										<td>Otto</td>
+									</tr>
+									<tr>
+										<td>00002</td>
+										<td>Jacob</td>
+										<td>Thornton</td>
+									</tr>
+									<tr>
+										<td>00003</td>
+										<td>Larry</td>
+										<td>the Bird</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="col-4">
+							<h5 style="color:red; font-weight:bold;" th:text="${message}"></h5>
+							<form id="addEmp" action="employee/add-emp" method="POST">
+								<div class="form-group">
+									<label for="empID">Mã nhân viên</label> <input
+										type="text" class="form-control" name="userCodeID" required="required" id="userCodeID" />
+								</div>
+								<div class="form-group">
+									<label for="fullName">Họ và Tên</label> <input
+										type="text" class="form-control" name="fullName" required="required" id="fullName" />
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">Tình trạng hôn nhân</label> 
+									<select class="form-control" name="married" id="married">
+									    <option value="1" selected="selected">Đã kết hôn</option>
+									    <option value="0">Độc thân</option>
+									  </select>
+								</div>
+								<button type="submit" class="btn btn-primary">Lưu</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+
+	<div th:insert="fragments/scriptjs :: scriptjs"></div>
+</body>
+
+</html>
